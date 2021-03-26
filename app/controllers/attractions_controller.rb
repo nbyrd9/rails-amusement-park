@@ -1,3 +1,5 @@
+
+
 class AttractionsController < ApplicationController
     def index
         @attractions = Attraction.all
@@ -6,11 +8,13 @@ class AttractionsController < ApplicationController
       def show
         @attraction = Attraction.find(params[:id])
         @ride = @attraction.rides.build(user_id: current_user.id)
+       
       end
     
       def ride
-        flash[:alert] = Ride.create(ride_params).take_ride
-    
+      
+        flash[:notice] = Ride.create(user_id: current_user.id, attraction_id: params[:id]).take_ride
+   
         redirect_to user_path(current_user)
       end
     
@@ -33,15 +37,17 @@ class AttractionsController < ApplicationController
         attraction.update(attraction_params)
         redirect_to attraction_path(attraction)
       end
-      
+
       private
     
-      def ride_params
-        params.permit(:user_id, :attraction_id)
-      end
+      # def ride_params
+      #   params.permit(:user_id, :attraction_id)
+      # end
     
       def attraction_params
         params.require(:attraction).permit(:name, :min_height,
-                                          :happiness_rating, :nausea_rating, :tickets)
+                                          :happiness_rating, 
+                                          :nausea_rating, 
+                                          :tickets)
       end
 end

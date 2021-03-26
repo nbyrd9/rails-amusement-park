@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get '/logout' => 'users#logout', as: :logout
   resources :users, only: [:new, :show, :create, :edit, :update]
   resources :attractions
-  post '/attractions/ride' => 'attractions#ride'
+  post '/attractions/:id/ride' => 'attractions#ride', as: :attraction_ride
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

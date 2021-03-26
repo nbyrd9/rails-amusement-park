@@ -2,10 +2,13 @@
     <div class='field'>
       <%= f.label :name %><br />
       <%= f.text_field :name %>
+      <%= collection_select(:user, :name, User.all, :name, :name, prompt: "Please select your username from this dropdown") %>
     </div>
+    
     <div>
       <%= f.label :password %><br />
-      <%= f.password_field :password %>
+      <%= password_field_tag(:password, nil, class: "form-control") %>
+   
     </div>
     <div class='field'>
       <%= f.submit "Sign In" %>
